@@ -63,7 +63,7 @@ body {
   margin-bottom: 60px;
 }
 .footer {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: 100%;
   white-space: nowrap;
@@ -488,7 +488,7 @@ body {
 
 
 /*** Footer ***/
-.footer {
+/*.footer {
     color: #A7A8B4;
 }
 
@@ -540,4 +540,4 @@ body {
 
             .footer .copyright a:hover {
                 color: #FFFFFF;
-            }
+            }*/
