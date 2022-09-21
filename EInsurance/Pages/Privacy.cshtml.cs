@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace EInsurance.Pages
 {
-    public class AboutModel : PageModel
+    public class PrivacyModel : PageModel
     {
-        private readonly ILogger<AboutModel> _logger;
+        private readonly ILogger<PrivacyModel> _logger;
 
-        public AboutModel(ILogger<AboutModel> logger)
+        public PrivacyModel(ILogger<PrivacyModel> logger)
         {
             _logger = logger;
         }

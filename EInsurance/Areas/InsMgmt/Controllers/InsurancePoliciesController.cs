@@ -27,6 +27,17 @@ namespace EInsurance.Areas.InsMgmt.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
+        //get insurance category
+        public async Task<IActionResult> GetPolicyOfCategory(int filterInsuranceId)
+        {
+            var viewmodel = await _context.InsurancePolicy
+                                          .Where(m => m.InsuranceId == filterInsuranceId)
+                                          .Include(m => m.Insurance)
+                                          .ToListAsync();
+
+            return View(viewName: "Index", model: viewmodel);
+        }
+
         // GET: InsMgmt/InsurancePolicies/Details/5
         public async Task<IActionResult> Details(int? id)
         {
