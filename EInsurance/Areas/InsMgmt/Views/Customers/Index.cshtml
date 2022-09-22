@@ -1,13 +1,28 @@
-﻿@model IEnumerable<EInsurance.Models.Customer>
+﻿@using EInsurance.Models.Enums
+@using Microsoft.AspNetCore.Identity
+@model IEnumerable<EInsurance.Models.Customer>
+@inject UserManager<IdentityUser> _userManager
 
 @{
     ViewData["Title"] = "Index";
+    var user = await _userManager.GetUserAsync(this.User);
+    var isAdmin = await _userManager.IsInRoleAsync(user, MyIdentityRoleNames.InsuranceAdmin.ToString());
 }
 
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    @if (isAdmin)
+    {
+        <a class="btn btn-primary disabled" asp-action="Create">Create New</a>
+         <a class="btn btn-success" asp-area="InsMgmt" asp-controller="PolicyStatus" 
+                       asp-action="Create">Policy Status</a>
+    }
+    else {
+        <a class="btn btn-primary " href="#">Create New</a>
+           <a class="btn btn-warning disabled" asp-area="InsMgmt" asp-controller="PolicyStatus" 
+                       asp-action="Create">Policy Status</a>                  
+    }         
 </p>
 <table class="table">
     <thead>
@@ -73,9 +88,20 @@
                 @Html.DisplayFor(modelItem => item.InsurancePolicy.PolicyName)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.CustomerId">Edit</a> |
+                @if (isAdmin)
+              {
+                <a class="btn btn-primary disabled" asp-action="Edit" asp-route-id="@item.CustomerId">Edit</a> 
+                 <a class="btn btn-primary disabled" asp-action="Delete" asp-route-id="@item.CustomerId">Delete</a>
+              }
+                else {
+                 <a class="btn btn-primary" href="#">Edit</a>
+                 <a class="btn btn-primary" href="#">Delete</a>
+                }   
+                <a  class="btn btn-primary"  asp-action="Details" asp-route-id="@item.CustomerId">Details</a> 
+               
+                @*<a asp-action="Edit" asp-route-id="@item.CustomerId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.CustomerId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.CustomerId">Delete</a>
+                <a asp-action="Delete" asp-route-id="@item.CustomerId">Delete</a>*@
             </td>
         </tr>
 }

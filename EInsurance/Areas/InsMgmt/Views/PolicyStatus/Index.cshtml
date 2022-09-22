@@ -1,13 +1,27 @@
-﻿@model IEnumerable<EInsurance.Models.PolicyStatus>
+﻿@using EInsurance.Models.Enums
+@using Microsoft.AspNetCore.Identity
+
+@model IEnumerable<EInsurance.Models.PolicyStatus>
+@inject UserManager<IdentityUser> _userManager
 
 @{
     ViewData["Title"] = "Index";
+    var user = await _userManager.GetUserAsync(this.User);
+    var isAdmin = await _userManager.IsInRoleAsync(user, MyIdentityRoleNames.InsuranceAdmin.ToString());
 }
 
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    @if (isAdmin)
+    {
+        <a class="btn btn-primary" asp-action="Create">Create New</a>
+        
+    }
+    else {
+        <a class="btn btn-primary disabled" href="#">Create New</a>
+                        
+    }    
 </p>
 <table class="table">
     <thead>
@@ -37,9 +51,20 @@
                 @Html.DisplayFor(modelItem => item.Customer.FullName)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ApprovedPolicyId">Edit</a> |
+                @if (isAdmin)
+                {
+                    <a  class="btn btn-primary" asp-action="Edit" asp-route-id="@item.ApprovedPolicyId">Edit</a> 
+                    <a class="btn btn-primary" asp-action="Delete" asp-route-id="@item.ApprovedPolicyId">Delete</a>
+                }
+               else {
+                    <a class="btn btn-primary disabled" href="#">Edit</a>
+                     <a class="btn btn-primary disabled" href="#">Delete</a>
+               } 
+                    <a asp-action="Details" asp-route-id="@item.ApprovedPolicyId">Details</a> 
+                
+                @*<a asp-action="Edit" asp-route-id="@item.ApprovedPolicyId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.ApprovedPolicyId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ApprovedPolicyId">Delete</a>
+                <a asp-action="Delete" asp-route-id="@item.ApprovedPolicyId">Delete</a>*@
             </td>
         </tr>
 }

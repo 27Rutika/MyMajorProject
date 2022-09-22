@@ -7,10 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using EInsurance.Data;
 using EInsurance.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EInsurance.Areas.InsMgmt.Controllers
 {
     [Area("InsMgmt")]
+    [Authorize]
     public class InsurancePoliciesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -58,6 +60,7 @@ namespace EInsurance.Areas.InsMgmt.Controllers
         }
 
         // GET: InsMgmt/InsurancePolicies/Create
+        [Authorize(Roles = "InsuranceAdmin")]
         public IActionResult Create()
         {
             ViewData["InsuranceId"] = new SelectList(_context.Insurances, "InsuranceId", "InsuranceName");
@@ -67,6 +70,8 @@ namespace EInsurance.Areas.InsMgmt.Controllers
         // POST: InsMgmt/InsurancePolicies/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
+        [Authorize(Roles = "InsuranceAdmin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("PolicyId,PolicyName,SumAssurance,Premium,Tenure,CreatedOn,InsuranceId")] InsurancePolicy insurancePolicy)
@@ -82,6 +87,7 @@ namespace EInsurance.Areas.InsMgmt.Controllers
         }
 
         // GET: InsMgmt/InsurancePolicies/Edit/5
+        [Authorize(Roles = "InsuranceAdmin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -101,6 +107,8 @@ namespace EInsurance.Areas.InsMgmt.Controllers
         // POST: InsMgmt/InsurancePolicies/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
+        [Authorize(Roles = "InsuranceAdmin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("PolicyId,PolicyName,SumAssurance,Premium,Tenure,CreatedOn,InsuranceId")] InsurancePolicy insurancePolicy)
@@ -135,6 +143,8 @@ namespace EInsurance.Areas.InsMgmt.Controllers
         }
 
         // GET: InsMgmt/InsurancePolicies/Delete/5
+
+        [Authorize(Roles = "InsuranceAdmin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -154,6 +164,8 @@ namespace EInsurance.Areas.InsMgmt.Controllers
         }
 
         // POST: InsMgmt/InsurancePolicies/Delete/5
+
+        [Authorize(Roles = "InsuranceAdmin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

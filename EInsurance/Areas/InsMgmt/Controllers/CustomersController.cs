@@ -7,10 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using EInsurance.Data;
 using EInsurance.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EInsurance.Areas.InsMgmt.Controllers
 {
     [Area("InsMgmt")]
+    [Authorize]
     public class CustomersController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -47,6 +49,7 @@ namespace EInsurance.Areas.InsMgmt.Controllers
         }
 
         // GET: InsMgmt/Customers/Create
+       
         public IActionResult Create()
         {
             ViewData["PolicyId"] = new SelectList(_context.Set<InsurancePolicy>(), "PolicyId", "PolicyName");
@@ -56,6 +59,7 @@ namespace EInsurance.Areas.InsMgmt.Controllers
         // POST: InsMgmt/Customers/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("CustomerId,FullName,Age,Email,PhoneNumber,BirthDate,Gender,Address,Country,PolicyId")] Customer customer)

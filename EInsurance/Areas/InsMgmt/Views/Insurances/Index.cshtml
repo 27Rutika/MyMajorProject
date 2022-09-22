@@ -1,13 +1,27 @@
-﻿@model IEnumerable<EInsurance.Models.Insurance>
+﻿@using EInsurance.Models.Enums
+@using Microsoft.AspNetCore.Identity
+@model IEnumerable<EInsurance.Models.Insurance>
+@inject UserManager<IdentityUser> _userManager
 
 @{
     ViewData["Title"] = "Index";
+    var user = await _userManager.GetUserAsync(this.User);
+    var isAdmin = await _userManager.IsInRoleAsync(user, MyIdentityRoleNames.InsuranceAdmin.ToString());
 }
 
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+     @if (isAdmin)
+    {
+        <a class="btn btn-primary" asp-action="Create">Create New</a>
+    }
+    else {
+        <a class="btn btn-primary disabled" href="#">Create New</a>
+          
+                
+    }
+    @*<a asp-action="Create">Create New</a>*@
 </p>
 <table class="table">
     <thead>
@@ -25,9 +39,28 @@
                 @Html.DisplayFor(modelItem => item.InsuranceName)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.InsuranceId">Edit</a> |
+                 @if (isAdmin)
+              {
+                <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.InsuranceId">Edit</a> 
+                   <a class="btn btn-primary" asp-action="Delete" asp-route-id="@item.InsuranceId">Delete</a>
+              }
+                else {
+                 <a class="btn btn-primary disabled" href="#">Edit</a>
+                 <a class="btn btn-primary disabled" href="#">Delete</a>
+                }   
+                <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.InsuranceId">Details</a> 
+                |
+               <a class="btn btn-sm btn-success" asp-area="InsMgmt" asp-controller="InsurancePolicies" 
+                       asp-action="GetPolicyOfCategory" 
+                       asp-route-filterInsuranceId="@item.InsuranceId">View Plans</a>
+
+               @* <a asp-action="Edit" asp-route-id="@item.InsuranceId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.InsuranceId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.InsuranceId">Delete</a>
+                <a asp-action="Delete" asp-route-id="@item.InsuranceId">Delete</a> |
+                 <a class="btn btn-sm btn-success" asp-area="InsMgmt" asp-controller="InsurancePolicies" 
+                       asp-action="GetPolicyOfCategory" 
+                       asp-route-filterInsuranceId="@item.InsuranceId">View Plans</a>*@
+
             </td>
         </tr>
 }

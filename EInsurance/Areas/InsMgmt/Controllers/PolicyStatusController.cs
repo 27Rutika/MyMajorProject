@@ -7,10 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using EInsurance.Data;
 using EInsurance.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EInsurance.Areas.InsMgmt.Controllers
 {
     [Area("InsMgmt")]
+    [Authorize]
     public class PolicyStatusController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -47,6 +49,8 @@ namespace EInsurance.Areas.InsMgmt.Controllers
         }
 
         // GET: InsMgmt/PolicyStatus/Create
+
+        [Authorize(Roles = "InsuranceAdmin")]
         public IActionResult Create()
         {
             ViewData["CustomerId"] = new SelectList(_context.Customer, "CustomerId", "FullName");
@@ -71,6 +75,7 @@ namespace EInsurance.Areas.InsMgmt.Controllers
         }
 
         // GET: InsMgmt/PolicyStatus/Edit/5
+        [Authorize(Roles = "InsuranceAdmin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -90,6 +95,8 @@ namespace EInsurance.Areas.InsMgmt.Controllers
         // POST: InsMgmt/PolicyStatus/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
+        [Authorize(Roles = "InsuranceAdmin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ApprovedPolicyId,Status,ApporovalDate,CustomerId")] PolicyStatus policyStatus)
@@ -124,6 +131,8 @@ namespace EInsurance.Areas.InsMgmt.Controllers
         }
 
         // GET: InsMgmt/PolicyStatus/Delete/5
+
+        [Authorize(Roles = "InsuranceAdmin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -143,6 +152,8 @@ namespace EInsurance.Areas.InsMgmt.Controllers
         }
 
         // POST: InsMgmt/PolicyStatus/Delete/5
+
+        [Authorize(Roles = "InsuranceAdmin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

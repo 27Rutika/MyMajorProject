@@ -7,10 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using EInsurance.Data;
 using EInsurance.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EInsurance.Areas.InsMgmt.Controllers
 {
     [Area("InsMgmt")]
+    [Authorize]
     public class InsurancesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -25,6 +27,17 @@ namespace EInsurance.Areas.InsMgmt.Controllers
         {
             return View(await _context.Insurances.ToListAsync());
         }
+
+        //get method
+        //public async Task<IActionResult> GetPolicyOfCategory(int filterInsuranceId)
+        //{
+        //    var viewmodel = await _context.InsurancePolicy
+        //                                  .Where(m => m.InsuranceId == filterInsuranceId)
+        //                                  .Include(m => m.Insurance)
+        //                                  .ToListAsync();
+
+        //    return View(viewName: "Index", model: viewmodel);
+        //}
 
         // GET: InsMgmt/Insurances/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -45,6 +58,8 @@ namespace EInsurance.Areas.InsMgmt.Controllers
         }
 
         // GET: InsMgmt/Insurances/Create
+
+        [Authorize(Roles = "InsuranceAdmin")]
         public IActionResult Create()
         {
             return View();
@@ -53,6 +68,8 @@ namespace EInsurance.Areas.InsMgmt.Controllers
         // POST: InsMgmt/Insurances/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
+        [Authorize(Roles = "InsuranceAdmin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("InsuranceId,InsuranceName")] Insurance insurance)
@@ -67,6 +84,8 @@ namespace EInsurance.Areas.InsMgmt.Controllers
         }
 
         // GET: InsMgmt/Insurances/Edit/5
+
+        [Authorize(Roles = "InsuranceAdmin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -85,6 +104,8 @@ namespace EInsurance.Areas.InsMgmt.Controllers
         // POST: InsMgmt/Insurances/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
+        [Authorize(Roles = "InsuranceAdmin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("InsuranceId,InsuranceName")] Insurance insurance)
@@ -118,6 +139,8 @@ namespace EInsurance.Areas.InsMgmt.Controllers
         }
 
         // GET: InsMgmt/Insurances/Delete/5
+
+        [Authorize(Roles = "InsuranceAdmin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -136,6 +159,7 @@ namespace EInsurance.Areas.InsMgmt.Controllers
         }
 
         // POST: InsMgmt/Insurances/Delete/5
+        [Authorize(Roles = "InsuranceAdmin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
