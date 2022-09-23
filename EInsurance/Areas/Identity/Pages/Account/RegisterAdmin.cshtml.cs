@@ -17,7 +17,7 @@ using Microsoft.Extensions.Logging;
 
 namespace EInsurance.Areas.Identity.Pages.Account
 {
-    [AllowAnonymous]
+    [Authorize(Roles = "InsuranceAdmin")]
     public class RegisterAdminModel : PageModel
     {
         private readonly SignInManager<IdentityUser> _signInManager;
