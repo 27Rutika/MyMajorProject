@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using EInsurance.Data;
 using EInsurance.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Logging;
 
 namespace EInsurance.Areas.InsMgmt.Controllers
 {
@@ -16,10 +17,12 @@ namespace EInsurance.Areas.InsMgmt.Controllers
     public class InsurancePoliciesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly ILogger<InsurancePoliciesController> _logger;
 
-        public InsurancePoliciesController(ApplicationDbContext context)
+        public InsurancePoliciesController(ApplicationDbContext context, ILogger<InsurancePoliciesController> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         // GET: InsMgmt/InsurancePolicies
@@ -76,6 +79,16 @@ namespace EInsurance.Areas.InsMgmt.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("PolicyId,PolicyName,SumAssurance,Premium,Tenure,CreatedOn,InsuranceId")] InsurancePolicy insurancePolicy)
         {
+
+            // Sanitize the data
+            insurancePolicy.PolicyName = insurancePolicy.PolicyName.Trim();
+
+            // Validation Checks - Server-side validation
+            bool duplicateExists = _context.InsurancePolicy.Any(c => c.PolicyName == insurancePolicy.PolicyName);
+            if (duplicateExists)
+            {
+                ModelState.AddModelError("PolicyName", "Duplicate Policy Found!");
+            }
             if (ModelState.IsValid)
             {
                 _context.Add(insurancePolicy);
@@ -116,6 +129,16 @@ namespace EInsurance.Areas.InsMgmt.Controllers
             if (id != insurancePolicy.PolicyId)
             {
                 return NotFound();
+            }
+
+            // Sanitize the data
+            insurancePolicy.PolicyName = insurancePolicy.PolicyName.Trim();
+
+            // Validation Checks - Server-side validation
+            bool duplicateExists = _context.InsurancePolicy.Any(c => c.PolicyName == insurancePolicy.PolicyName);
+            if (duplicateExists)
+            {
+                ModelState.AddModelError("PolicyName", "Duplicate Policy Found!");
             }
 
             if (ModelState.IsValid)

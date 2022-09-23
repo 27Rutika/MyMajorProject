@@ -39,6 +39,8 @@ namespace EInsurance.Models
         #region Navigation Properties to the Insurance model
 
         public int InsuranceId { get; set; }
+
+        [System.Text.Json.Serialization.JsonIgnore]
         [ForeignKey(nameof(InsurancePolicy.InsuranceId))]
 
         public Insurance Insurance { get; set; }

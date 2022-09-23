@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using EInsurance.Data;
 using EInsurance.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Logging;
 
 namespace EInsurance.Areas.InsMgmt.Controllers
 {
@@ -16,10 +17,12 @@ namespace EInsurance.Areas.InsMgmt.Controllers
     public class InsurancesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly ILogger<InsurancesController> _logger;
 
-        public InsurancesController(ApplicationDbContext context)
+        public InsurancesController(ApplicationDbContext context, ILogger<InsurancesController> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         // GET: InsMgmt/Insurances
@@ -74,6 +77,17 @@ namespace EInsurance.Areas.InsMgmt.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("InsuranceId,InsuranceName")] Insurance insurance)
         {
+
+            // Sanitize the data
+            insurance.InsuranceName = insurance.InsuranceName.Trim();
+
+            // Validation Checks - Server-side validation
+            bool duplicateExists = _context.Insurances.Any(c => c.InsuranceName == insurance.InsuranceName);
+            if (duplicateExists)
+            {
+                ModelState.AddModelError("InsuranceName", "Duplicate Insurance Found!");
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Add(insurance);
@@ -113,6 +127,16 @@ namespace EInsurance.Areas.InsMgmt.Controllers
             if (id != insurance.InsuranceId)
             {
                 return NotFound();
+            }
+
+            // Sanitize the data
+            insurance.InsuranceName = insurance.InsuranceName.Trim();
+            // Validation Checks - Server-side validation
+            bool duplicateExists = _context.Insurances
+                .Any(c => c.InsuranceName == insurance.InsuranceName && c.InsuranceId != insurance.InsuranceId);
+            if (duplicateExists)
+            {
+                ModelState.AddModelError("InsuranceName", "Duplicate Insurance Found!");
             }
 
             if (ModelState.IsValid)

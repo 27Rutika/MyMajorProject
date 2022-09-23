@@ -5,15 +5,19 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+//ADD the assembly attribute
+[assembly: ApiConventionType(typeof(DefaultApiConventions))]
 namespace EInsurance
 {
     public class Startup
@@ -68,6 +72,22 @@ namespace EInsurance
                     options.Cookie.Name = "MyAuthCookie";
                 });
             
+            //Register the MVC Middleware
+            // Needed for swagger Documentation Middleware Services
+            // Needed for API Support(if applicable)
+            services.AddMvc();
+            //Register the swagger deocumentation generation middleware service
+            services
+                .AddSwaggerGen(config =>
+                {
+                    config.SwaggerDoc("v1", new OpenApiInfo
+                    {
+                        Version = "v1",
+                        Title = "Insurance",
+                        Description = "EInsurance - API Version 1.0"
+                    });
+                });
+
             //Register the EmailSender ot the dependency injection container
             services.AddSingleton<IEmailSender, MyEmailSenderService>();
 
@@ -90,6 +110,15 @@ namespace EInsurance
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            // Add the Swagger Middleware
+            app.UseSwagger();
+
+            // Add the Swagger Documentation Generation Middleware
+            // URL: https://localhost:xxxx/swagger
+            app.UseSwaggerUI(config =>
+            {
+                config.SwaggerEndpoint("/swagger/v1/swagger.json", "Insurance Web API v1.0");
+            });
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
