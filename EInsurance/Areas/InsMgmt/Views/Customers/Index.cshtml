@@ -9,7 +9,7 @@
     var isAdmin = await _userManager.IsInRoleAsync(user, MyIdentityRoleNames.InsuranceAdmin.ToString());
 }
 
-<h1>Index</h1>
+<center><h1>LIST OF CUSTOMERS</h1></center>
 
 <p>
     @if (isAdmin)
@@ -36,14 +36,59 @@ table, th, td {
 
 body{
         
-        background-image:url('https://images.unsplash.com/photo-1648120636586-f3b641dc2dbd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80');
+        background-image:url('https://img.freepik.com/free-vector/hand-painted-watercolor-abstract-watercolor-background_23-2149005675.jpg?size=626&ext=jpg&ga=GA1.2.2009624204.1660112810');
         background-repeat:no-repeat;
         background-attachment:fixed;
         background-size:100%;
           }
 </style>
 
-<table class="table">
+<div class="card-columns">
+    @foreach (var item in Model) {
+       
+        <div class="card">
+            <div class="card-header">
+                @item.FullName
+            </div>
+            <div class="card-body">
+                   
+                @Html.DisplayNameFor(modelItem => item.Email): @item.Email
+                <br/>
+         
+                @Html.DisplayNameFor(modelItem => item.PhoneNumber): @item.PhoneNumber
+          
+                <br/>
+                @Html.DisplayNameFor(modelItem => item.BirthDate): @item.BirthDate
+        
+                <br/>
+                @Html.DisplayNameFor(modelItem => item.Gender):  @item.Gender
+                <br/>       
+                @Html.DisplayNameFor(modelItem => item.Address): @item.Address
+                <br/>
+                @Html.DisplayNameFor(modelItem => item.Country): @item.Country
+                <br/>
+                @Html.DisplayNameFor(modelItem => item.InsurancePolicy.PolicyName): @item.InsurancePolicy.PolicyName
+            </div>
+            <div class="card-footer">
+                
+               @if (isAdmin)
+              {
+                <a class="btn btn-warning disabled" asp-action="Edit" asp-route-id="@item.CustomerId">Edit</a> 
+                 <a class="btn btn-danger disabled" asp-action="Delete" asp-route-id="@item.CustomerId">Delete</a>
+              }
+                else {
+                 <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.CustomerId">Edit</a>
+                 <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.CustomerId">Delete</a>
+                }   
+                <a  class="btn btn-dark"  asp-action="Details" asp-route-id="@item.CustomerId">Details</a> 
+                
+            </div>
+        </div>
+    }
+</div>
+<a class="btn btn-sm btn-warning btn-outline-danger" asp-area="InsMgmt" asp-controller="InsurancePolicies" asp-action="Index">List of Policies</a>
+
+@*<table class="table">
     <thead>
         <tr>
             <th>
@@ -118,11 +163,13 @@ body{
                 }   
                 <a  class="btn btn-primary"  asp-action="Details" asp-route-id="@item.CustomerId">Details</a> 
                
-                @*<a asp-action="Edit" asp-route-id="@item.CustomerId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.CustomerId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.CustomerId">Delete</a>*@
+               
             </td>
         </tr>
 }
     </tbody>
-</table>
+</table>*@
+ @*<a asp-action="Edit" asp-route-id="@item.CustomerId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.CustomerId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.CustomerId">Delete</a>*@
+ 

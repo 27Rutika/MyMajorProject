@@ -9,7 +9,7 @@
     var isAdmin = await _userManager.IsInRoleAsync(user, MyIdentityRoleNames.InsuranceAdmin.ToString());
 }
 
-<h1>Index</h1>
+<center><h1>INSURANCE CATEGORY</h1></center>
 
 <p>
      @if (isAdmin)
@@ -23,7 +23,61 @@
     }
     @*<a asp-action="Create">Create New</a>*@
 </p>
-<table class="table">
+
+<style>
+/*table, th, td {
+  border: 4px solid white;
+  border-collapse: collapse;
+  background-color:cornsilk;
+}
+th, td {
+  background-color:cornsilk;
+}*/
+
+body{
+        
+        background-image:url('https://img.freepik.com/free-photo/abstract-background-illustration-watercolor-blue-green_53876-108704.jpg?size=626&ext=jpg&ga=GA1.2.2009624204.1660112810');
+        background-repeat:no-repeat;
+        background-attachment:fixed;
+        background-size:100%;
+          }
+</style>
+
+
+<div class="card-columns">
+    @foreach (var item in Model) {
+       
+        <div class="card">
+            <div class="card-header">
+              Insurance Category Name
+            </div>
+            <div class="card-body">
+                @Html.DisplayFor(modelItem => item.InsuranceName)
+            </div>
+            <div class="card-footer">
+                
+              @if (isAdmin)
+              {
+                <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.InsuranceId">Edit</a> 
+                   <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.InsuranceId">Delete</a>
+              }
+                else {
+                 <a class="btn btn-warning disabled" href="#">Edit</a>
+                 <a class="btn btn-danger disabled" href="#">Delete</a>
+                }   
+                <a class="btn btn-dark" asp-action="Details" asp-route-id="@item.InsuranceId">Details</a> 
+                
+               <a class="btn btn-success" asp-area="InsMgmt" asp-controller="InsurancePolicies" 
+                       asp-action="GetPolicyOfCategory" 
+                       asp-route-filterInsuranceId="@item.InsuranceId">View Plans</a>
+                
+            </div>
+        </div>
+    }
+</div>
+<a class="btn btn-sm btn-danger text-white" asp-area="" asp-page="/Index">Back To Home</a>
+
+@*<table class="table">
     <thead>
         <tr>
             <th>
@@ -54,15 +108,16 @@
                        asp-action="GetPolicyOfCategory" 
                        asp-route-filterInsuranceId="@item.InsuranceId">View Plans</a>
 
-               @* <a asp-action="Edit" asp-route-id="@item.InsuranceId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.InsuranceId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.InsuranceId">Delete</a> |
-                 <a class="btn btn-sm btn-success" asp-area="InsMgmt" asp-controller="InsurancePolicies" 
-                       asp-action="GetPolicyOfCategory" 
-                       asp-route-filterInsuranceId="@item.InsuranceId">View Plans</a>*@
-
             </td>
         </tr>
 }
     </tbody>
 </table>
+*@
+                 @* <a asp-action="Edit" asp-route-id="@item.InsuranceId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.InsuranceId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.InsuranceId">Delete</a> |
+                 <a class="btn btn-sm btn-success" asp-area="InsMgmt" asp-controller="InsurancePolicies" 
+                       asp-action="GetPolicyOfCategory" 
+                       asp-route-filterInsuranceId="@item.InsuranceId">View Plans</a>*@
+ 

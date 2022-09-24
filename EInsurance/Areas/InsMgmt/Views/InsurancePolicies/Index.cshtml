@@ -11,38 +11,88 @@
     //ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<center><h1>INSURANCE POLICIES</h1></center>
 
 <p>
      @if (isAdmin)
     {
         <a class="btn btn-primary" asp-action="Create">Create New</a>
+        <a class="btn btn-success disabled" asp-area="InsMgmt" asp-controller="Customers" 
+                       asp-action="Create">Apply Policy<br/></a>  
     }
     else {
+       
         <a class="btn btn-primary disabled" href="#">Create New</a>
+        <a class="btn btn-success" asp-area="InsMgmt" asp-controller="Customers" 
+                       asp-action="Create">Apply Policy<br/></a>       
     }
-    @*<a asp-action="Create">Create New</a>*@
+    
 </p>
 
 <style>
-table, th, td {
+/*table, th, td {
   border: 4px solid white;
   border-collapse: collapse;
   background-color:cornsilk;
 }
-/*th, td {
+th, td {
   background-color:cornsilk;
 }*/
 
 body{
         
-        background-image:url('https://www.intechnic.com/hubfs/Blog/iStock-177036781.jpg');
+        background-image:url('https://img.freepik.com/free-vector/hand-painted-watercolor-abstract-watercolor-background_23-2149001482.jpg?size=626&ext=jpg&ga=GA1.2.2009624204.1660112810');
         background-repeat:no-repeat;
         background-attachment:fixed;
         background-size:100%;
           }
 </style>
-<table class="table">
+
+<div class="card-columns">
+    @foreach (var item in Model) {
+       
+        <div class="card">
+            <div class="card-header">
+                @item.PolicyName
+            </div>
+            <div class="card-body">
+                       
+                @Html.DisplayNameFor(modelItem => item.SumAssurance) : @item.SumAssurance
+                <br/>    
+                @Html.DisplayNameFor(modelItem => item.Premium) : @item.Premium
+                <br/>
+                @Html.DisplayNameFor(modelItem => item.Tenure) : @item.Tenure
+                <br/>
+               @* @Html.DisplayNameFor(modelItem => item.CreatedOn) : @item.CreatedOn*@
+               CreatedOn : @Html.DisplayFor(modelItem => item.CreatedOn) 
+                <br/>
+                @Html.DisplayNameFor(modelItem => item.Insurance.InsuranceName) : @item.Insurance.InsuranceName
+            </div>
+            <div class="card-footer">
+                
+              @if (isAdmin)
+              {
+                <a class="btn btn-primary " asp-action="Edit" asp-route-id="@item.PolicyId">Edit</a> 
+                 
+                <a class="btn btn-primary" asp-action="Delete" asp-route-id="@item.PolicyId">Delete</a>
+              }
+              else {
+                 <a class="btn btn-primary disabled" asp-action="Edit">Edit</a>
+                 <a class="btn btn-primary disabled" asp-action="Delete">Delete</a>
+              }           
+                <a  class="btn btn-success"  asp-action="Details" asp-route-id="@item.PolicyId">Details</a>
+                @*<a class="btn btn-success" asp-area="InsMgmt" asp-controller="Customers" 
+                       asp-action="Create">Apply Policy<br/></a>*@
+                
+            </div>
+        </div>
+    }
+</div>
+<a class="btn btn-sm btn-warning btn-outline-danger" asp-area="InsMgmt" asp-controller="Insurances" asp-action="Index">List of Insurance Categories</a>
+<a class="btn btn-sm btn-danger text-white" asp-area="" asp-page="/Index">Back To Home</a>
+
+
+@*<table class="table">
     <thead>
         <tr>
             <th>
@@ -105,15 +155,14 @@ body{
                
                 |
                 <a class="btn btn-sm btn-success" asp-area="InsMgmt" asp-controller="Customers" 
-                       asp-action="Create">Apply Policy<br/></a>
-
-                
-               @*<a asp-action="Edit" asp-route-id="@item.PolicyId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.PolicyId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.PolicyId">Delete</a> *@
+                       asp-action="Create">Apply Policy<br/></a>              
                
             </td>
         </tr>
 }
     </tbody>
-</table>
+</table>*@
+ @*<a asp-action="Edit" asp-route-id="@item.PolicyId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.PolicyId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.PolicyId">Delete</a> *@
+ 
