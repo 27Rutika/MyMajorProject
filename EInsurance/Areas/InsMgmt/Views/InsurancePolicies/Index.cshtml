@@ -72,13 +72,13 @@ body{
                 
               @if (isAdmin)
               {
-                <a class="btn btn-primary " asp-action="Edit" asp-route-id="@item.PolicyId">Edit</a> 
+                <a class="btn btn-warning " asp-action="Edit" asp-route-id="@item.PolicyId">Edit</a> 
                  
-                <a class="btn btn-primary" asp-action="Delete" asp-route-id="@item.PolicyId">Delete</a>
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.PolicyId">Delete</a>
               }
               else {
-                 <a class="btn btn-primary disabled" asp-action="Edit">Edit</a>
-                 <a class="btn btn-primary disabled" asp-action="Delete">Delete</a>
+                 <a class="btn btn-warning disabled" asp-action="Edit">Edit</a>
+                 <a class="btn btn-danger disabled" asp-action="Delete">Delete</a>
               }           
                 <a  class="btn btn-success"  asp-action="Details" asp-route-id="@item.PolicyId">Details</a>
                 @*<a class="btn btn-success" asp-area="InsMgmt" asp-controller="Customers" 
@@ -88,7 +88,7 @@ body{
         </div>
     }
 </div>
-<a class="btn btn-sm btn-warning btn-outline-danger" asp-area="InsMgmt" asp-controller="Insurances" asp-action="Index">List of Insurance Categories</a>
+@*<a class="btn btn-sm btn-warning btn-outline-danger" asp-area="InsMgmt" asp-controller="Insurances" asp-action="Index">List of Insurance Categories</a>*@
 <a class="btn btn-sm btn-danger text-white" asp-area="" asp-page="/Index">Back To Home</a>
 
 

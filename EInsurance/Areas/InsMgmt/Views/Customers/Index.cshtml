@@ -51,7 +51,8 @@ body{
                 @item.FullName
             </div>
             <div class="card-body">
-                   
+                 @Html.DisplayNameFor(model => model.Age): @item.Age
+                 <br/>
                 @Html.DisplayNameFor(modelItem => item.Email): @item.Email
                 <br/>
          
@@ -86,7 +87,7 @@ body{
         </div>
     }
 </div>
-<a class="btn btn-sm btn-warning btn-outline-danger" asp-area="InsMgmt" asp-controller="InsurancePolicies" asp-action="Index">List of Policies</a>
+@*<a class="btn btn-sm btn-warning btn-outline-danger" asp-area="InsMgmt" asp-controller="InsurancePolicies" asp-action="Index">List of Policies</a>*@
 
 @*<table class="table">
     <thead>
