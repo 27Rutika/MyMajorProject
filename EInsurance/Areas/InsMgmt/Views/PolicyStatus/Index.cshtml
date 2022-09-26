@@ -18,7 +18,7 @@
         
     }
     else {
-        <a class="btn btn-primary disabled" href="#">Create New</a>
+        @*<a class="btn btn-primary disabled" href="#">Create New</a>*@
                         
     }    
 </p>
@@ -64,8 +64,8 @@ body{
                     <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.ApprovedPolicyId">Delete</a>
                 }
                else {
-                    <a class="btn btn-warning disabled" href="#">Edit</a>
-                     <a class="btn btn-danger disabled" href="#">Delete</a>
+                    @*<a class="btn btn-warning disabled" href="#">Edit</a>
+                     <a class="btn btn-danger disabled" href="#">Delete</a>*@
                } 
                     <a class="btn btn-dark" asp-action="Details" asp-route-id="@item.ApprovedPolicyId">Details</a> 
                 
