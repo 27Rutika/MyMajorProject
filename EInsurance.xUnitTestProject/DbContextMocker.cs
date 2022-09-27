@@ -40,17 +40,17 @@ namespace EInsurance.xUnitTestProject
                 new Insurance
                 {
                     InsuranceId = 1,
-                    InsuranceName = "First Category"
+                    InsuranceName = "First Insurance"
                 },
                 new Insurance
                 {
                     InsuranceId = 2,
-                    InsuranceName = "Second Category"
+                    InsuranceName = "Second Insurance"
                 },
                 new Insurance
                 {
                      InsuranceId = 3,
-                    InsuranceName = "Third Category"
+                    InsuranceName = "Third Insurance"
                 },
             };
 
