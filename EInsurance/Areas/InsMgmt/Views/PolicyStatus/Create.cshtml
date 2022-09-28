@@ -6,6 +6,16 @@
 
 <h1>Create</h1>
 
+<style>
+body{
+        
+        background-color:lightcyan;
+        background-repeat:no-repeat;
+        background-attachment:fixed;
+        background-size:100%;
+          }
+</style>
+
 <h4>PolicyStatus</h4>
 <hr />
 <div class="row">
@@ -14,7 +24,10 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
              <div class="form-group">
                 <label asp-for="CustomerId" class="control-label"></label>
-                <select asp-for="CustomerId" class ="form-control" asp-items="ViewBag.CustomerId"></select>
+               @* <select asp-for="CustomerId" class ="form-control" asp-items="ViewBag.CustomerId"></select>*@
+                <input type="text" id="CustomerId" class="form-control" name="CustomerId" value ="@ViewBag.CustomerId"  readonly="readonly"/> 
+                <input type="text" class="form-control" value ="@ViewBag.FullName" readonly="readonly"/>
+                <span asp-validation-for="CustomerId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Status" class="control-label"></label>

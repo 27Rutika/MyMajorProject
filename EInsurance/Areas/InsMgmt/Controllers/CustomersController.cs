@@ -50,9 +50,14 @@ namespace EInsurance.Areas.InsMgmt.Controllers
 
         // GET: InsMgmt/Customers/Create
        
-        public IActionResult Create()
+        public IActionResult Create(int id)
         {
-            ViewData["PolicyId"] = new SelectList(_context.Set<InsurancePolicy>(), "PolicyId", "PolicyName");
+            //ViewData["PolicyId"] = new SelectList(_context.Set<InsurancePolicy>(), "PolicyId", "PolicyName");
+            //return View();
+            var policy = _context.InsurancePolicy.SingleOrDefault(c => c.PolicyId == id);
+            ViewBag.PolicyId = policy.PolicyId;
+            ViewBag.PolicyName = policy.PolicyName;
+            //ViewData["PlanId"] = new SelectList(_context.Plan, "PlanId", "PlanType");
             return View();
         }
 

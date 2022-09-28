@@ -6,6 +6,16 @@
 
 <h1>Details</h1>
 
+<style>
+body{
+        
+        background-color:lightcyan;
+        background-repeat:no-repeat;
+        background-attachment:fixed;
+        background-size:100%;
+          }
+</style>
+
 <div>
     <h4>Insurance</h4>
     <hr />
@@ -19,6 +29,6 @@
     </dl>
 </div>
 <div>
-    <a  class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.InsuranceId">Edit</a> |
+    @*<a  class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.InsuranceId">Edit</a> |*@
     <a  class="btn btn-primary" asp-action="Index">Back to List</a>
 </div>

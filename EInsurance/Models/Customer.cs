@@ -46,6 +46,7 @@ namespace EInsurance.Models
 
         [Display(Name = "Gender")]
         [Required(ErrorMessage = "{0} Cannot be empty")]
+        [RegularExpression(@"(^[a-zA-Z''-'\s]{1,40}$)", ErrorMessage = "Incorrect Gender")]
         public string Gender { get; set; }
 
 

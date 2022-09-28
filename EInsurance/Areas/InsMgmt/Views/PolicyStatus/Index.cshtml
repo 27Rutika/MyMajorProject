@@ -11,17 +11,17 @@
 }
 
 <center><h1>POLICY STATUS</h1></center>
-<p>
+@*<p>
     @if (isAdmin)
     {
         <a class="btn btn-primary" asp-action="Create">Create New</a>
         
     }
     else {
-        @*<a class="btn btn-primary disabled" href="#">Create New</a>*@
+        <a class="btn btn-primary disabled" href="#">Create New</a>
                         
     }    
-</p>
+</p>*@
 
 <style>
 /*table, th, td {
@@ -73,7 +73,8 @@ body{
         </div>
     }
 </div>
-<a class="btn btn-danger" asp-area="InsMgmt" asp-controller="Customers" asp-action="Index">List of Customers</a>
+@*<a class="btn btn-danger" asp-area="InsMgmt" asp-controller="Customers" asp-action="Index">List of Customers</a>*@
+<a class="btn btn-sm btn-danger text-white" asp-area="" asp-page="/Index">Back To Home</a>
 
 @*<table class="table">
     <thead>

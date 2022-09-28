@@ -51,9 +51,14 @@ namespace EInsurance.Areas.InsMgmt.Controllers
         // GET: InsMgmt/PolicyStatus/Create
 
         [Authorize(Roles = "InsuranceAdmin")]
-        public IActionResult Create()
+        public IActionResult Create(int id)
         {
-            ViewData["CustomerId"] = new SelectList(_context.Customer, "CustomerId", "FullName");
+            //ViewData["CustomerId"] = new SelectList(_context.Customer, "CustomerId", "FullName");
+            //return View();
+            var Customers = _context.Customer.SingleOrDefault(c => c.CustomerId == id);
+            ViewBag.CustomerId = Customers.CustomerId;
+            ViewBag.FullName = Customers.FullName;
+            //ViewData["CustomerId"] = new SelectList(_context.Customer, "CustomerId", "FullName");
             return View();
         }
 

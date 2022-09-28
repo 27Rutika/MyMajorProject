@@ -16,15 +16,15 @@
 <p>
      @if (isAdmin)
     {
-        <a class="btn btn-primary" asp-action="Create">Create New</a>
+        <a class="btn btn-primary" asp-action="Create">Create New Policy</a>
         @*<a class="btn btn-success disabled" asp-area="InsMgmt" asp-controller="Customers" 
                        asp-action="Create">Apply Policy<br/></a>  *@
     }
     else {
        
         @*<a class="btn btn-primary disabled" href="#">Create New</a>*@
-        <a class="btn btn-success" asp-area="InsMgmt" asp-controller="Customers" 
-                       asp-action="Create">Apply Policy<br/></a>       
+       @* <a class="btn btn-success" asp-area="InsMgmt" asp-controller="Customers" 
+                       asp-action="Create">Apply Policy<br/></a>  *@     
     }
     
 </p>
@@ -77,6 +77,8 @@ body{
                 <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.PolicyId">Delete</a>
               }
               else {
+                  <a class="btn btn-warning" asp-area="InsMgmt" asp-controller="Customers" 
+                       asp-action="Create" asp-route-id="@item.PolicyId">Apply Policy<br/></a>
                  @*<a class="btn btn-warning disabled" asp-action="Edit">Edit</a>
                  <a class="btn btn-danger disabled" asp-action="Delete">Delete</a>*@
               }           

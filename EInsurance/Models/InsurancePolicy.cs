@@ -38,6 +38,7 @@ namespace EInsurance.Models
 
         #region Navigation Properties to the Insurance model
 
+        [Display(Name = "Insurance Name")]
         public int InsuranceId { get; set; }
 
         [System.Text.Json.Serialization.JsonIgnore]

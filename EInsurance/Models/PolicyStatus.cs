@@ -28,6 +28,8 @@ namespace EInsurance.Models
 
 
         #region Navigation Properties to the Customer model
+
+        [Display(Name = "Customer Name")]
         public int CustomerId { get; set; }
 
         [ForeignKey(nameof(PolicyStatus.CustomerId))]
