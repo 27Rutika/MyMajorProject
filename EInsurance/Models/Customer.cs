@@ -59,6 +59,8 @@ namespace EInsurance.Models
         public string Country { get; set; }
 
         #region Navigation Properties to InsurancePolicy Model
+
+        [Display(Name = "Policy Name")]
         public int PolicyId { get; set; }
         [ForeignKey(nameof(Customer.PolicyId))]
 

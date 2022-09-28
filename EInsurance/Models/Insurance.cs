@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace EInsurance.Models
 {
@@ -18,6 +19,7 @@ namespace EInsurance.Models
         [StringLength(100)]
         public string InsuranceName { get; set; }//Itemcategory Name
 
+        [JsonIgnore]
         #region 
         public ICollection<InsurancePolicy> InsurancePolicy { get; set; }
 
