@@ -41,7 +41,7 @@ namespace EInsurance.Models
         [Display(Name = "Insurance Name")]
         public int InsuranceId { get; set; }
 
-        [System.Text.Json.Serialization.JsonIgnore]
+        [System.Text.Json.Serialization.JsonIgnore]   // Suppress the information about the FK Collection to the API.
         [ForeignKey(nameof(InsurancePolicy.InsuranceId))]
 
         public Insurance Insurance { get; set; }

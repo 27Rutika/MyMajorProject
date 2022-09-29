@@ -19,7 +19,7 @@ namespace EInsurance.Models
         [StringLength(100)]
         public string InsuranceName { get; set; }//Itemcategory Name
 
-        [JsonIgnore]
+        [JsonIgnore]       // Suppress the information about the FK Collection to the API.
         #region 
         public ICollection<InsurancePolicy> InsurancePolicy { get; set; }
 

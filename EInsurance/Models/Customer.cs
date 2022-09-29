@@ -8,6 +8,7 @@ namespace EInsurance.Models
     [Table("Customers")]
     public class Customer
     {
+        //details of customer
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Display(Name = "Customer Id")]
