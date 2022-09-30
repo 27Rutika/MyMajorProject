@@ -14,6 +14,27 @@ namespace EInsurance.xUnitTestProject
     public partial class InsurancesApiTests
     {
         [Fact]
+        public void InsertInsurance_BadRequestResult()
+        {
+            // ARRANGE
+            var dbName = nameof(InsurancesApiTests.InsertInsurance_BadRequestResult);
+            var logger = Mock.Of<ILogger<InsurancesController>>();
+            using var dbContext = DbContextMocker.GetApplicationDbContext(dbName);      // Disposable!
+            var controller = new InsurancesController(dbContext, logger);
+            int? findInsuranceID = null;
+
+            // ACT
+            IActionResult actionResultGet = controller.GetInsurance(findInsuranceID).Result;
+
+            // ASSERT - check if the IActionResult is BadRequest
+            Assert.IsType<BadRequestResult>(actionResultGet);
+
+            // ASSERT - check if the Status Code is (HTTP 400) "BadRequest"
+            int expectedStatusCode = (int)System.Net.HttpStatusCode.BadRequest;
+            var actualStatusCode = (actionResultGet as BadRequestResult).StatusCode;
+            Assert.Equal<int>(expectedStatusCode, actualStatusCode);
+        }
+        [Fact]
         public void InsertInsurance_OkResult()
         {
             // ARRANGE

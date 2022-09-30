@@ -6,7 +6,9 @@ namespace EInsurance.Models
 {
     public class PolicyStatus
     {
-
+        /// <summary>
+        /// Policy Status Details
+        /// </summary>
         [Display(Name = "Approved Policy Id")]
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

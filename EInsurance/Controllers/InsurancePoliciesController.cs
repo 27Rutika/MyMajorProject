@@ -86,6 +86,12 @@ namespace EInsurance.Controllers
             return CreatedAtAction("GetInsurancePolicy", new { id = insurancePolicy.PolicyId }, insurancePolicy);
         }
 
+        /// <summary>
+        /// Added Delete Method
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+
         // DELETE: api/InsurancePolicies/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<InsurancePolicy>> DeleteInsurancePolicy(int id)

@@ -8,7 +8,9 @@ namespace EInsurance.Models
     [Table("InsurancePoilcies")]
     public class InsurancePolicy
     {
-
+        /// <summary>
+        /// Insurance Policy Details
+        /// </summary>
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Display(Name = "Policy Id")]
